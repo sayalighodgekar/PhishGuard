@@ -3,15 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta
-    name="description"
-    content="An educational, browser-only cybersecurity simulator for exploring phishing risks and defensive controls."
-  >
+  <meta name="description" content="DualShield is a safe, browser-only cybersecurity awareness platform for exploring fictional phishing scenarios and defensive controls.">
+  <meta name="keywords" content="cybersecurity education, phishing awareness, security simulation, SOC dashboard, final year project">
+  <meta name="author" content="Project Developer">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#05090f">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="DualShield | Cybersecurity Awareness Platform">
+  <meta property="og:description" content="Explore phishing risks and defensive security controls through safe, fictional browser simulations.">
+  <meta property="og:image" content="favicon.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DualShield | Cybersecurity Awareness Platform">
+  <meta name="twitter:description" content="A safe dual-mode phishing awareness and defensive-mechanism simulator.">
+  <link rel="canonical" href="./">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
   <title>DualShield | Cybersecurity Simulation Framework</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="app-loader" role="status" aria-live="polite" data-app-loader>
+    <div class="loader-brand">
+      <div class="loader-shield" aria-hidden="true">
+        <span></span>
+        <svg viewBox="0 0 32 36"><path d="M16 2 29 7v10c0 8.2-5.5 14.5-13 17C8.5 31.5 3 25.2 3 17V7l13-5Z"/><path d="m10.5 18 3.6 3.6 7.8-8"/></svg>
+      </div>
+      <p class="eyebrow">DualShield</p>
+      <p class="loader-title">A Dual-Mode Cybersecurity Framework</p>
+      <p data-loader-message>Initializing Security Modules...</p>
+      <div class="loader-progress" aria-hidden="true"><span data-loader-progress></span></div>
+      <small>EDUCATIONAL · LOCAL · SAFE</small>
+    </div>
+  </div>
 
   <div class="site-shell">
     <header class="site-header" data-header>
@@ -44,11 +69,13 @@
 
         <div class="nav-menu" id="primary-menu" data-nav-menu>
           <a class="nav-link is-active" href="#home">Home</a>
-          <a class="nav-link" href="#about">About</a>
           <a class="nav-link" href="#simulation">Simulation</a>
-          <a class="nav-link" href="#environment">Modes</a>
-          <a class="nav-link" href="#learn">Learn</a>
-          <span class="phase-badge">Phase 1</span>
+          <a class="nav-link" href="#environment">Security Modes</a>
+          <a class="nav-link" href="#soc-dashboard" data-dashboard-link>Dashboard</a>
+          <a class="nav-link" href="#about">About</a>
+          <a class="nav-link" href="#documentation">Documentation</a>
+          <a class="nav-link" href="#contact">Contact</a>
+          <span class="phase-badge">v1.0</span>
         </div>
       </nav>
     </header>
@@ -90,7 +117,7 @@
             </ul>
           </div>
 
-          <div class="dashboard-preview" aria-label="Decorative preview of the future simulator interface">
+          <div class="dashboard-preview" role="img" aria-label="Preview of the fictional secure-mode simulator interface">
             <div class="preview-topbar">
               <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
               <p>SIMULATION_CONSOLE</p>
@@ -222,7 +249,7 @@
                 aria-labelledby="sms-tab"
                 data-simulation-view="sms"
               >
-                <div class="phone-frame" aria-label="Fictional SMS message preview">
+                <div class="phone-frame" role="region" aria-label="Fictional SMS message preview">
                   <div class="phone-speaker" aria-hidden="true"></div>
                   <div class="phone-statusbar">
                     <strong>10:42</strong>
@@ -258,7 +285,7 @@
                 data-simulation-view="email"
                 hidden
               >
-                <div class="email-client" aria-label="Fictional email message preview">
+                <div class="email-client" role="region" aria-label="Fictional email message preview">
                   <div class="email-appbar">
                     <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
                     <strong>Mail</strong>
@@ -345,7 +372,7 @@
                 <span>5</span><div><small>Upcoming</small><strong>Results Dashboard</strong></div>
               </li>
             </ol>
-            <p class="progress-future"><span aria-hidden="true">⌁</span> Execution and results remain locked until Phase 4.</p>
+            <p class="progress-future"><span aria-hidden="true">⌁</span> Complete mode selection to unlock execution and results.</p>
           </section>
         </div>
       </section>
@@ -368,6 +395,7 @@
               type="button"
               role="radio"
               aria-checked="false"
+              tabindex="0"
               data-mode-option="secure"
             >
               <span class="environment-card-icon" aria-hidden="true">
@@ -391,6 +419,7 @@
               type="button"
               role="radio"
               aria-checked="false"
+              tabindex="-1"
               data-mode-option="vulnerable"
             >
               <span class="environment-card-icon" aria-hidden="true">
@@ -647,9 +676,9 @@
               <a class="button home-action" href="#home">Back to Home</a>
             </nav>
 
-            <aside class="phase-five-placeholder">
+            <aside class="dashboard-handoff">
               <span aria-hidden="true">◇</span>
-              <div><strong>Phase 5 expansion point</strong><p>Live dashboard, threat statistics, analytics, history, charts, and metrics will be introduced in the next phase.</p></div>
+              <div><strong>Analysis ready</strong><p>The simulated SOC dashboard is generated below when this timeline completes.</p></div>
             </aside>
           </div>
         </div>
@@ -758,9 +787,9 @@
             <a class="button home-action" href="#home">Back to Home</a>
           </nav>
 
-          <aside class="final-phase-placeholder">
+          <aside class="release-status">
             <span aria-hidden="true">◇</span>
-            <p><strong>Final phase preparation:</strong> polish, advanced animations, theme switching, keyboard shortcuts, performance review, deployment configuration, README documentation, and GitHub Pages support.</p>
+            <p><strong>Release status:</strong> production audit complete. This static educational build is ready for GitHub Pages, Netlify, or Vercel after project-owner placeholders are updated.</p>
           </aside>
         </div>
       </section>
@@ -812,6 +841,70 @@
           </p>
         </div>
       </section>
+
+      <section class="project-about section" id="project-about" aria-labelledby="project-about-title">
+        <div class="container">
+          <header class="section-heading">
+            <p class="eyebrow">About the platform</p>
+            <h2 id="project-about-title">Cybersecurity education through safe interaction</h2>
+            <p>DualShield turns abstract security concepts into an accessible, controlled learning journey without reproducing harmful behavior.</p>
+          </header>
+          <div class="about-detail-grid">
+            <article><span>◎</span><h3>Purpose</h3><p>Demonstrate how phishing uses trust, urgency, and imitation while showing how layered defenses reduce risk.</p></article>
+            <article><span>♙</span><h3>Educational objectives</h3><p>Build recognition skills, encourage deliberate decisions, and connect human awareness with technical safeguards.</p></article>
+            <article><span>!</span><h3>What is phishing?</h3><p>A social-engineering technique that impersonates a trusted source to influence a person into taking an unsafe action.</p></article>
+            <article><span>◆</span><h3>Why awareness matters</h3><p>Filters can reduce exposure, but informed users remain an essential decision layer when unexpected messages appear.</p></article>
+            <article><span>⌁</span><h3>Architecture</h3><p>A static presentation layer, an encapsulated in-memory controller, reusable scenario data, and mode-aware educational results.</p></article>
+            <article><span>◇</span><h3>Technology stack</h3><p>Semantic HTML5, responsive CSS3, accessible SVG, and modern vanilla JavaScript—with no backend or external framework.</p></article>
+          </div>
+          <aside class="about-disclaimer"><strong>Educational disclaimer</strong><p>Every identity, message, metric, event, and outcome is fictional. The application never requests credentials, contacts remote services, scans systems, or transmits data.</p></aside>
+        </div>
+      </section>
+
+      <section class="documentation section" id="documentation" aria-labelledby="documentation-title">
+        <div class="container">
+          <header class="section-heading">
+            <p class="eyebrow">In-app documentation</p>
+            <h2 id="documentation-title">How DualShield works</h2>
+            <p>Follow the workflow from message recognition to a simulated SOC analysis.</p>
+          </header>
+          <div class="documentation-layout">
+            <ol class="workflow-list">
+              <li><span>01</span><div><strong>Inspect the message</strong><p>Switch between fictional SMS and email examples.</p></div></li>
+              <li><span>02</span><div><strong>Reveal indicators</strong><p>Identify suspicious sender, urgency, pressure, and link behavior.</p></div></li>
+              <li><span>03</span><div><strong>Select a mode</strong><p>Compare a protected environment with one missing safeguards.</p></div></li>
+              <li><span>04</span><div><strong>Run the simulation</strong><p>Observe a predefined defensive or risk-awareness timeline.</p></div></li>
+              <li><span>05</span><div><strong>Review analysis</strong><p>Explore fictional metrics, recommendations, and a printable report.</p></div></li>
+            </ol>
+            <div class="module-grid">
+              <article><h3>Awareness Lab</h3><p>Message recognition and warning-sign education.</p></article>
+              <article><h3>Mode Engine</h3><p>Exclusive secure or vulnerable in-memory configuration.</p></article>
+              <article><h3>Timeline Renderer</h3><p>Reusable, visual-only scenario event sequencing.</p></article>
+              <article><h3>SOC Dashboard</h3><p>Mode-aware analysis with fictional telemetry.</p></article>
+              <article><h3>Security concepts</h3><p>Filtering, URL reputation, MFA, safe browsing, and user judgment.</p></article>
+              <article><h3>Privacy model</h3><p>No accounts, persistence, backend, analytics, or data transmission.</p></article>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="credits section" id="contact" aria-labelledby="credits-title">
+        <div class="container credits-panel">
+          <div>
+            <p class="eyebrow">Contact · Credits</p>
+            <h2 id="credits-title">Built for responsible cybersecurity education</h2>
+            <p>Replace the placeholders below with approved academic and professional details before submission.</p>
+          </div>
+          <dl class="credits-list">
+            <div><dt>Developer</dt><dd>Student Name</dd></div>
+            <div><dt>Project</dt><dd>Final Year Project</dd></div>
+            <div><dt>Institution</dt><dd>Institution Name</dd></div>
+            <div><dt>Supervisor</dt><dd>Supervisor Name</dd></div>
+            <div><dt>Academic Year</dt><dd>2025–2026</dd></div>
+            <div><dt>Profiles</dt><dd>GitHub · LinkedIn <small>(add approved links)</small></dd></div>
+          </dl>
+        </div>
+      </section>
     </main>
 
     <footer class="site-footer">
@@ -822,11 +915,13 @@
           </span>
           <span class="brand-copy"><strong>DualShield</strong><small>Cybersecurity Lab</small></span>
         </a>
-        <p>Final Year Project · Educational simulation only</p>
-        <p>© <span data-year></span> DualShield</p>
+        <p class="footer-disclaimer">A browser-only educational simulator. No real attacks, credentials, or network activity.</p>
+        <div class="footer-meta"><span>v1.0.0</span><span>Educational release</span><span>© <span data-year></span> DualShield</span></div>
       </div>
     </footer>
   </div>
+
+  <button class="back-to-top" type="button" aria-label="Back to top" aria-hidden="true" tabindex="-1" data-back-to-top>↑</button>
 
   <div class="modal-backdrop" data-education-modal hidden>
     <section

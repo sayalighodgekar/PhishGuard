@@ -1,0 +1,24 @@
+# Operating system and editor files
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs and temporary files
+*.log
+*.tmp
+*.temp
+.cache/
+
+# Optional local deployment output
+dist/
+.netlify/
+.vercel/
+
+# Environment files (the project does not require them)
+.env
+.env.*
+!.env.example

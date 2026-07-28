@@ -9,14 +9,9 @@
     selectedMode: null,
     currentSimulation: "sms",
     progressStep: 3,
-    simulationCompleted: false,
     simulationRunId: 0,
-    futureFlags: {
-      phase4Ready: false,
-      secureSimulationEnabled: false,
-      vulnerableSimulationEnabled: false,
-      dashboardEnabled: false
-    }
+    dashboardRunId: 0,
+    dashboard: null
   };
 
   const modeContent = {
@@ -163,6 +158,16 @@
 
   const selectAll = (selector, scope = document) => [...scope.querySelectorAll(selector)];
   const select = (selector, scope = document) => scope.querySelector(selector);
+  const rafThrottle = (callback) => {
+    let frame = 0;
+    return (...args) => {
+      if (frame) return;
+      frame = window.requestAnimationFrame(() => {
+        frame = 0;
+        callback(...args);
+      });
+    };
+  };
   let lastFocusedElement = null;
   let toastTimer = null;
 
@@ -183,6 +188,12 @@
       setMenuState(toggle.getAttribute("aria-expanded") !== "true");
     });
 
+    document.addEventListener("keydown", (event) => {
+      if (event.key !== "Escape" || toggle?.getAttribute("aria-expanded") !== "true") return;
+      setMenuState(false);
+      toggle.focus();
+    });
+
     selectAll(".nav-link").forEach((link) => {
       link.addEventListener("click", () => {
         selectAll(".nav-link").forEach((item) => item.classList.remove("is-active"));
@@ -191,7 +202,7 @@
       });
     });
 
-    window.addEventListener("scroll", updateHeader, { passive: true });
+    window.addEventListener("scroll", rafThrottle(updateHeader), { passive: true });
     updateHeader();
   }
 
@@ -237,7 +248,7 @@
 
     window.requestAnimationFrame(() => {
       modal.classList.add("is-open");
-      select("[data-modal-dialog]")?.focus();
+    select("[data-modal-close]")?.focus();
     });
   }
 
@@ -344,11 +355,11 @@
 
   function updateModeUI() {
     const mode = appState.selectedMode;
-    selectAll("[data-mode-option]").forEach((card) => {
+    selectAll("[data-mode-option]").forEach((card, index) => {
       const selected = card.dataset.modeOption === mode;
       card.classList.toggle("is-selected", selected);
       card.setAttribute("aria-checked", String(selected));
-      card.tabIndex = selected || !mode ? 0 : -1;
+      card.tabIndex = selected || (!mode && index === 0) ? 0 : -1;
     });
 
     const status = select("[data-mode-status]");
@@ -360,7 +371,7 @@
     select("[data-ready-title]").textContent =
       mode ? `${mode === "secure" ? "Secure" : "Vulnerable"} Mode is ready` : "Choose a mode to continue";
     select("[data-ready-description]").textContent =
-      mode ? "The configuration is held in memory and is ready for the Phase 4 placeholder."
+      mode ? "The configuration is held in memory and is ready for the interactive simulation."
         : "Your selection stays in memory only while this page is open.";
 
     showModeExplanation(mode);
@@ -380,8 +391,7 @@
     if (!modeContent[mode]) return;
     updateSimulationState({
       selectedMode: mode,
-      progressStep: 3,
-      simulationCompleted: false
+      progressStep: 3
     });
     updateModeUI();
     showToast(
@@ -398,7 +408,6 @@
       return;
     }
 
-    appState.futureFlags.phase4Ready = true;
     runSimulation();
   }
 
@@ -407,6 +416,7 @@
   }
 
   function resetExecutionUI() {
+    select("[data-dashboard]").hidden = true;
     select("[data-execution-content]").hidden = true;
     select("[data-initializer]").hidden = false;
     const exposure = select("[data-fictional-exposure]");
@@ -551,7 +561,7 @@
     select("[data-simulation-results]").hidden = false;
     select("[data-learning-panel]").hidden = false;
     select("[data-restart-actions]").hidden = false;
-    updateSimulationState({ progressStep: 4, simulationCompleted: true });
+    updateSimulationState({ progressStep: 4 });
     complete.focus();
     window.setTimeout(() => initializeDashboard(mode), 500);
   }
@@ -581,13 +591,18 @@
   function resetSimulation(mode = appState.selectedMode) {
     if (!modeContent[mode]) return;
     selectMode(mode);
-    updateSimulationState({ progressStep: 3, simulationCompleted: false });
+    updateSimulationState({ progressStep: 3 });
     runSimulation();
   }
 
   function generateSimulationID() {
     const values = new Uint32Array(2);
-    window.crypto.getRandomValues(values);
+    if (window.crypto?.getRandomValues) {
+      window.crypto.getRandomValues(values);
+    } else {
+      values[0] = Math.floor(Math.random() * 0xffffffff);
+      values[1] = Date.now() & 0xffffffff;
+    }
     return `SIM-${values[0].toString(16).slice(0, 4).toUpperCase()}-${values[1].toString(16).slice(0, 6).toUpperCase()}`;
   }
 
@@ -680,12 +695,13 @@
     select("[data-recommendations]").replaceChildren(...cards);
   }
 
-  async function populateEventLog() {
+  async function populateEventLog(runId) {
     const log = select("[data-event-log]");
     log.replaceChildren();
     const now = new Date();
     const events = ["Simulation Started", `${appState.currentSimulation.toUpperCase()} Message Loaded`, "Warning Indicators Displayed", `${appState.selectedMode === "secure" ? "Secure" : "Vulnerable"} Mode Selected`, "Simulation Completed", "Dashboard Generated"];
     for (let index = 0; index < events.length; index += 1) {
+      if (runId !== appState.dashboardRunId) return;
       const line = document.createElement("p");
       const eventTime = new Date(now.getTime() - (events.length - index) * 4000).toLocaleTimeString([], { hour12: false });
       line.innerHTML = `<time>[${eventTime}]</time> <span>${events[index]}</span>`;
@@ -697,6 +713,7 @@
 
   function renderDashboardTimeline() {
     selectAll("[data-dashboard-timeline] li").forEach((node, index) => {
+      node.classList.remove("is-visible");
       window.setTimeout(() => node.classList.add("is-visible"), index * 130);
     });
   }
@@ -705,7 +722,8 @@
     const profile = dashboardProfiles[mode];
     const dashboard = select("[data-dashboard]");
     const simulationId = generateSimulationID();
-    appState.futureFlags.dashboardEnabled = true;
+    appState.dashboardRunId += 1;
+    const dashboardRunId = appState.dashboardRunId;
     appState.dashboard = { simulationId, timestamp: new Date().toISOString() };
     dashboard.hidden = false;
     dashboard.className = `soc-dashboard section ${mode}-dashboard`;
@@ -725,7 +743,7 @@
     renderCharts(profile);
     renderRecommendations();
     renderDashboardTimeline();
-    populateEventLog();
+    populateEventLog(dashboardRunId);
     const protection = profile.metrics[5][1];
     const circumference = 2 * Math.PI * 57;
     const circle = select("[data-main-gauge-circle]");
@@ -752,13 +770,23 @@
       "",
       "All values are fictional and generated for cybersecurity education."
     ].join("\n");
-    const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `${appState.dashboard.simulationId}-summary.txt`;
-    link.click();
-    URL.revokeObjectURL(url);
+    if (!window.Blob || !window.URL?.createObjectURL) {
+      showToast("Download Unavailable", "This browser cannot generate a local report. Use Print Report instead.", "warning");
+      return;
+    }
+    try {
+      const blob = new Blob([content], { type: "text/plain;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${appState.dashboard.simulationId}-summary.txt`;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 0);
+    } catch {
+      showToast("Download Unavailable", "The summary could not be generated. Use Print Report instead.", "warning");
+    }
   }
 
   function initializeAccordion() {
@@ -853,21 +881,155 @@
     });
   }
 
+  function initializeLoadingExperience() {
+    const loader = select("[data-app-loader]");
+    const message = select("[data-loader-message]");
+    const progress = select("[data-loader-progress]");
+    if (!loader || !message || !progress) {
+      document.body.classList.add("app-ready");
+      return;
+    }
+    const shell = select(".site-shell");
+    shell?.setAttribute("inert", "");
+    shell?.setAttribute("aria-hidden", "true");
+    const messages = [
+      "Initializing Security Modules...",
+      "Loading Threat Intelligence...",
+      "Preparing Secure Environment...",
+      "Building Simulation Engine...",
+      "Ready."
+    ];
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const interval = reducedMotion ? 100 : 700;
+
+    messages.forEach((text, index) => {
+      window.setTimeout(() => {
+        message.textContent = text;
+        progress.style.width = `${((index + 1) / messages.length) * 100}%`;
+        if (index === messages.length - 1) {
+          window.setTimeout(() => {
+            loader.classList.add("is-complete");
+            document.body.classList.add("app-ready");
+            shell?.removeAttribute("inert");
+            shell?.removeAttribute("aria-hidden");
+            window.setTimeout(() => loader.remove(), reducedMotion ? 50 : 550);
+          }, reducedMotion ? 50 : 350);
+        }
+      }, index * interval);
+    });
+  }
+
+  function initializeScrollExperience() {
+    const backToTop = select("[data-back-to-top]");
+    const revealTargets = selectAll(
+      ".purpose-card, .environment-card, .soc-card, .kpi-card, .about-detail-grid article, .module-grid article, .workflow-list li"
+    );
+    revealTargets.forEach((element) => element.classList.add("scroll-reveal"));
+
+    const sections = selectAll("main > section[id]");
+    if ("IntersectionObserver" in window) {
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("is-in-view");
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: 0.12, rootMargin: "0px 0px -40px" });
+      revealTargets.forEach((element) => revealObserver.observe(element));
+
+      const sectionObserver = new IntersectionObserver((entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+        if (!visible) return;
+        const navigationTarget = {
+          "project-about": "about",
+          learn: "about",
+          "phase4-simulation": "simulation"
+        }[visible.target.id] || visible.target.id;
+        selectAll(".nav-link").forEach((link) => {
+          link.classList.toggle("is-active", link.getAttribute("href") === `#${navigationTarget}`);
+        });
+      }, { threshold: [0.2, 0.45], rootMargin: "-80px 0px -55%" });
+      sections.forEach((section) => sectionObserver.observe(section));
+    } else {
+      revealTargets.forEach((element) => element.classList.add("is-in-view"));
+    }
+
+    const updateScrollTools = () => {
+      const visible = window.scrollY > 650;
+      backToTop?.classList.toggle("is-visible", visible);
+      backToTop?.setAttribute("aria-hidden", String(!visible));
+      if (backToTop) backToTop.tabIndex = visible ? 0 : -1;
+    };
+    window.addEventListener("scroll", rafThrottle(updateScrollTools), { passive: true });
+    backToTop?.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+    updateScrollTools();
+  }
+
+  function initializeMicroInteractions() {
+    selectAll(".button, .channel-tab, .environment-card").forEach((element) => {
+      element.addEventListener("pointerdown", (event) => {
+        const rect = element.getBoundingClientRect();
+        const ripple = document.createElement("span");
+        ripple.className = "interaction-ripple";
+        ripple.style.left = `${event.clientX - rect.left}px`;
+        ripple.style.top = `${event.clientY - rect.top}px`;
+        element.append(ripple);
+        window.setTimeout(() => ripple.remove(), 600);
+      });
+    });
+
+    if (window.matchMedia("(hover: hover) and (prefers-reduced-motion: no-preference)").matches) {
+      selectAll(".purpose-card, .environment-card, .kpi-card").forEach((card) => {
+        let bounds = null;
+        let animationFrame = 0;
+        let pendingTransform = "";
+        card.classList.add("tilt-card");
+        card.addEventListener("pointerenter", () => {
+          bounds = card.getBoundingClientRect();
+        });
+        card.addEventListener("pointermove", (event) => {
+          if (!bounds) return;
+          const rotateX = ((event.clientY - bounds.top) / bounds.height - 0.5) * -3;
+          const rotateY = ((event.clientX - bounds.left) / bounds.width - 0.5) * 3;
+          pendingTransform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-2px)`;
+          if (animationFrame) return;
+          animationFrame = window.requestAnimationFrame(() => {
+            card.style.transform = pendingTransform;
+            animationFrame = 0;
+          });
+        });
+        card.addEventListener("pointerleave", () => {
+          if (animationFrame) window.cancelAnimationFrame(animationFrame);
+          animationFrame = 0;
+          bounds = null;
+          card.style.transform = "";
+        });
+      });
+    }
+
+    select("[data-dashboard-link]")?.addEventListener("click", (event) => {
+      const dashboard = select("[data-dashboard]");
+      if (!dashboard.hidden) return;
+      event.preventDefault();
+      showToast("Dashboard Locked", "Complete a simulation to generate the SOC dashboard.", "warning");
+      select("#environment")?.scrollIntoView({ behavior: "smooth" });
+    });
+  }
+
   function initializeApp() {
+    initializeLoadingExperience();
     initializeNavigation();
     initializeSimulation();
     initializeModeSelector();
     initializeGlobalKeyboardHandling();
+    initializeScrollExperience();
+    initializeMicroInteractions();
     switchSimulation(appState.currentSimulation);
     updateProgress();
 
     const year = select("[data-year]");
     if (year) year.textContent = new Date().getFullYear();
 
-    // TODO (Final Phase): Apply final visual polish and advanced animations.
-    // TODO (Final Phase): Add an accessible theme switcher and keyboard shortcuts.
-    // TODO (Final Phase): Complete performance optimization and deployment configuration.
-    // TODO (Final Phase): Generate README documentation and GitHub Pages support.
   }
 
   document.addEventListener("DOMContentLoaded", initializeApp);

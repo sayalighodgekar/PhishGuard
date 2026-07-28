@@ -1,0 +1,18 @@
+{
+  "name": "DualShield Cybersecurity Awareness Platform",
+  "short_name": "DualShield",
+  "description": "A safe, browser-only dual-mode phishing awareness and defensive security simulator.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#05090f",
+  "theme_color": "#05090f",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
