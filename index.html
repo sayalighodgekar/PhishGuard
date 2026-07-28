@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta
+    name="description"
+    content="An educational, browser-only cybersecurity simulator for exploring phishing risks and defensive controls."
+  >
+  <title>DualShield | Cybersecurity Simulation Framework</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <div class="site-shell">
+    <header class="site-header" data-header>
+      <nav class="nav container" aria-label="Primary navigation">
+        <a class="brand" href="#home" aria-label="DualShield home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 36" role="img">
+              <path d="M16 2 29 7v10c0 8.2-5.5 14.5-13 17C8.5 31.5 3 25.2 3 17V7l13-5Z"/>
+              <path d="m10.5 18 3.6 3.6 7.8-8"/>
+            </svg>
+          </span>
+          <span class="brand-copy">
+            <strong>DualShield</strong>
+            <small>Cybersecurity Lab</small>
+          </span>
+        </a>
+
+        <button
+          class="nav-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="primary-menu"
+          aria-label="Open navigation menu"
+          data-nav-toggle
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <div class="nav-menu" id="primary-menu" data-nav-menu>
+          <a class="nav-link is-active" href="#home">Home</a>
+          <a class="nav-link" href="#about">About</a>
+          <a class="nav-link" href="#simulation">Simulation</a>
+          <a class="nav-link" href="#environment">Modes</a>
+          <a class="nav-link" href="#learn">Learn</a>
+          <span class="phase-badge">Phase 1</span>
+        </div>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="hero section" id="home" aria-labelledby="hero-title">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+        <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+
+        <div class="container hero-layout">
+          <div class="hero-content">
+            <p class="eyebrow">
+              <span class="status-dot"></span>
+              Safe simulation environment
+            </p>
+            <h1 id="hero-title">
+              Understand the attack.<br>
+              <span>Strengthen the defense.</span>
+            </h1>
+            <p class="hero-description">
+              An interactive, dual-mode learning framework that demonstrates
+              phishing risks and the protective controls designed to stop them—
+              safely, transparently, and entirely in your browser.
+            </p>
+
+            <div class="hero-actions">
+              <button class="button button-primary" type="button" data-start-button>
+                Start Simulation
+                <span aria-hidden="true">→</span>
+              </button>
+              <a class="button button-secondary" href="#about">Explore the framework</a>
+            </div>
+
+            <ul class="trust-list" aria-label="Safety assurances">
+              <li><span aria-hidden="true">✓</span> No real credentials</li>
+              <li><span aria-hidden="true">✓</span> No network activity</li>
+              <li><span aria-hidden="true">✓</span> Fictional data only</li>
+            </ul>
+          </div>
+
+          <div class="dashboard-preview" aria-label="Decorative preview of the future simulator interface">
+            <div class="preview-topbar">
+              <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+              <p>SIMULATION_CONSOLE</p>
+              <span class="preview-status"><i></i> Sandbox active</span>
+            </div>
+            <div class="preview-body">
+              <div class="preview-sidebar" aria-hidden="true">
+                <span class="sidebar-logo"></span>
+                <span class="sidebar-item is-selected"></span>
+                <span class="sidebar-item"></span>
+                <span class="sidebar-item"></span>
+                <span class="sidebar-item"></span>
+              </div>
+              <div class="preview-content">
+                <div class="preview-heading">
+                  <div>
+                    <span class="label-line"></span>
+                    <span class="title-line"></span>
+                  </div>
+                  <span class="mode-pill">SECURE MODE</span>
+                </div>
+                <div class="metric-row">
+                  <div class="metric-card">
+                    <span>THREAT LEVEL</span>
+                    <strong class="cyan">LOW</strong>
+                    <i class="metric-bar cyan-bar"></i>
+                  </div>
+                  <div class="metric-card">
+                    <span>PROTECTION</span>
+                    <strong class="green">ACTIVE</strong>
+                    <i class="metric-bar green-bar"></i>
+                  </div>
+                </div>
+                <div class="scan-panel">
+                  <div class="shield-visual" aria-hidden="true">
+                    <div class="shield-ring"></div>
+                    <svg viewBox="0 0 48 54">
+                      <path d="M24 3 44 11v15c0 12.5-8.4 22.2-20 26C12.4 48.2 4 38.5 4 26V11l20-8Z"/>
+                      <path d="m16 27 5.5 5.5L33 20"/>
+                    </svg>
+                  </div>
+                  <div class="scan-copy">
+                    <span>DEFENSE ANALYSIS</span>
+                    <strong>System Protected</strong>
+                    <p>All simulated checks completed.</p>
+                    <div class="scan-line"><i></i></div>
+                  </div>
+                </div>
+                <div class="activity-list">
+                  <div><i class="green-dot"></i><span></span><b></b></div>
+                  <div><i class="green-dot"></i><span></span><b></b></div>
+                  <div><i class="cyan-dot"></i><span></span><b></b></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Phase 2: Browser-only phishing awareness simulation -->
+      <section class="simulation section" id="simulation" aria-labelledby="simulation-title">
+        <div class="simulation-grid" aria-hidden="true"></div>
+        <div class="container">
+          <header class="simulation-header">
+            <div>
+              <p class="eyebrow">Dual-Mode Cybersecurity Framework</p>
+              <h2 id="simulation-title">Phishing Awareness Simulation</h2>
+            </div>
+            <span class="education-badge">
+              <span aria-hidden="true">◆</span>
+              Educational Simulation Only
+            </span>
+          </header>
+
+          <aside class="scenario-panel" aria-labelledby="scenario-title">
+            <div class="scenario-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 3 3.8 6.2v5.9c0 4.9 3.5 8.1 8.2 9.9 4.7-1.8 8.2-5 8.2-9.9V6.2L12 3Z"/>
+                <path d="M12 8v5M12 16.5v.1"/>
+              </svg>
+            </div>
+            <div>
+              <h3 id="scenario-title">Scenario</h3>
+              <p>A fictional bank customer receives a suspicious message asking them to verify their account.</p>
+            </div>
+            <div class="scenario-goal">
+              <span>Learning goal</span>
+              <p>Recognize how urgency and social engineering can manipulate users into acting without checking.</p>
+            </div>
+          </aside>
+
+          <div class="simulation-toolbar">
+            <div>
+              <span class="toolbar-label">Choose a communication type</span>
+              <div class="channel-tabs" role="tablist" aria-label="Simulation communication type">
+                <button
+                  class="channel-tab is-active"
+                  id="sms-tab"
+                  type="button"
+                  role="tab"
+                  aria-selected="true"
+                  aria-controls="sms-simulation"
+                  data-simulation-tab="sms"
+                >
+                  <span aria-hidden="true">▣</span> SMS Phishing
+                </button>
+                <button
+                  class="channel-tab"
+                  id="email-tab"
+                  type="button"
+                  role="tab"
+                  aria-selected="false"
+                  aria-controls="email-simulation"
+                  data-simulation-tab="email"
+                >
+                  <span aria-hidden="true">✉</span> Email Phishing
+                </button>
+              </div>
+            </div>
+            <p class="sandbox-status"><i aria-hidden="true"></i> Local sandbox · No data transmitted</p>
+          </div>
+
+          <div class="simulation-workspace">
+            <div class="message-stage">
+              <div
+                class="simulation-view is-active"
+                id="sms-simulation"
+                role="tabpanel"
+                aria-labelledby="sms-tab"
+                data-simulation-view="sms"
+              >
+                <div class="phone-frame" aria-label="Fictional SMS message preview">
+                  <div class="phone-speaker" aria-hidden="true"></div>
+                  <div class="phone-statusbar">
+                    <strong>10:42</strong>
+                    <span aria-hidden="true">● ◒ ▰</span>
+                  </div>
+                  <div class="phone-nav">
+                    <span class="phone-back" aria-hidden="true">‹</span>
+                    <div class="sender-avatar" aria-hidden="true">AB</div>
+                    <div><strong>ABC Bank Alerts</strong><small>Text Message</small></div>
+                    <span class="phone-info" aria-hidden="true">i</span>
+                  </div>
+                  <div class="message-date">Today 10:42 AM</div>
+                  <div class="sms-bubble">
+                    <p>Your account requires verification due to a recent security review.</p>
+                    <p>Please verify your information within 24 hours to avoid temporary service interruption.</p>
+                    <button class="message-verify" type="button" data-verify-action>
+                      Verify Account
+                    </button>
+                  </div>
+                  <div class="sms-delivered">Delivered</div>
+                  <div class="phone-compose" aria-hidden="true">
+                    <span>＋</span><i>Text Message</i><b>↑</b>
+                  </div>
+                  <p class="simulation-watermark">FICTIONAL MESSAGE · FOR EDUCATION ONLY</p>
+                </div>
+              </div>
+
+              <div
+                class="simulation-view"
+                id="email-simulation"
+                role="tabpanel"
+                aria-labelledby="email-tab"
+                data-simulation-view="email"
+                hidden
+              >
+                <div class="email-client" aria-label="Fictional email message preview">
+                  <div class="email-appbar">
+                    <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                    <strong>Mail</strong>
+                    <span class="mail-search" aria-hidden="true">Search mail</span>
+                  </div>
+                  <div class="email-tools" aria-hidden="true">
+                    <span>←</span><span>⌑</span><span>!</span><span>⌫</span>
+                    <i></i><span>⋮</span>
+                  </div>
+                  <article class="email-message">
+                    <p class="email-subject">Urgent Security Verification Required</p>
+                    <div class="email-sender">
+                      <div class="sender-avatar">AB</div>
+                      <div>
+                        <strong>ABC Bank Security</strong>
+                        <small>security@abcbank-alerts.example</small>
+                      </div>
+                      <time datetime="10:42">10:42 AM</time>
+                    </div>
+                    <div class="email-body">
+                      <p>Dear Customer,</p>
+                      <p>We noticed unusual activity on your fictional account.</p>
+                      <p>Please verify your account information within 24 hours.</p>
+                      <p>Failure to do so may temporarily limit online banking services.</p>
+                      <button class="email-verify" type="button" data-verify-action>Verify Account</button>
+                      <p>Regards,<br><strong>ABC Bank Security Team</strong></p>
+                    </div>
+                    <p class="simulation-watermark email-watermark">FICTIONAL EMAIL · FOR EDUCATION ONLY</p>
+                  </article>
+                </div>
+              </div>
+            </div>
+
+            <aside class="indicators-panel" aria-labelledby="indicators-title">
+              <div class="indicator-heading">
+                <span class="warning-symbol" aria-hidden="true">!</span>
+                <div>
+                  <p class="eyebrow">Awareness check</p>
+                  <h3 id="indicators-title">Can You Spot the Warning Signs?</h3>
+                </div>
+              </div>
+              <p class="indicator-intro">Examine the message before revealing the common phishing indicators.</p>
+              <ul class="indicator-list" id="indicator-list" data-indicator-list aria-live="polite">
+                <li><span aria-hidden="true">!</span><div><strong>Suspicious sender address</strong><small>The domain imitates a trusted organization.</small></div></li>
+                <li><span aria-hidden="true">!</span><div><strong>Urgent language</strong><small>The message creates artificial time pressure.</small></div></li>
+                <li><span aria-hidden="true">!</span><div><strong>Pressure to act immediately</strong><small>Consequences are used to discourage careful thought.</small></div></li>
+                <li><span aria-hidden="true">!</span><div><strong>Requests sensitive information</strong><small>Unexpected verification requests deserve scrutiny.</small></div></li>
+                <li><span aria-hidden="true">!</span><div><strong>Unexpected message</strong><small>There is no prior context for this request.</small></div></li>
+                <li><span aria-hidden="true">!</span><div><strong>Unusual link</strong><small>Link text can hide an unrelated destination.</small></div></li>
+              </ul>
+              <button class="button reveal-button" type="button" data-reveal-indicators aria-controls="indicator-list">
+                <span aria-hidden="true">◎</span>
+                Reveal Indicators
+              </button>
+              <p class="indicator-note">
+                <span aria-hidden="true">ⓘ</span>
+                In this lab, buttons never leave the page or collect information.
+              </p>
+            </aside>
+          </div>
+
+          <section class="progress-panel" aria-labelledby="progress-title">
+            <div class="progress-header">
+              <div>
+                <p class="eyebrow">Learning path</p>
+                <h3 id="progress-title">Simulation Progress</h3>
+              </div>
+              <span data-progress-label>Step 3 of 5</span>
+            </div>
+            <ol class="progress-steps" data-progress>
+              <li class="is-complete">
+                <span aria-hidden="true">✓</span><div><small>Completed</small><strong>Receive Message</strong></div>
+              </li>
+              <li class="is-complete">
+                <span aria-hidden="true">✓</span><div><small>Completed</small><strong>Identify Indicators</strong></div>
+              </li>
+              <li class="is-active" aria-current="step">
+                <span>3</span><div><small>Current</small><strong>Mode Selection</strong></div>
+              </li>
+              <li>
+                <span>4</span><div><small>Upcoming</small><strong>Simulation Execution</strong></div>
+              </li>
+              <li>
+                <span>5</span><div><small>Upcoming</small><strong>Results Dashboard</strong></div>
+              </li>
+            </ol>
+            <p class="progress-future"><span aria-hidden="true">⌁</span> Execution and results remain locked until Phase 4.</p>
+          </section>
+        </div>
+      </section>
+
+      <!-- Phase 3: Dual-mode security framework -->
+      <section class="environment section" id="environment" aria-labelledby="environment-title">
+        <div class="container">
+          <header class="environment-header">
+            <div>
+              <p class="eyebrow">Phase 3 · Environment configuration</p>
+              <h2 id="environment-title">Cybersecurity Environment</h2>
+              <p>Select how the fictional environment should respond in a future simulation. No attack is executed in this phase.</p>
+            </div>
+            <span class="state-chip" data-mode-status><i></i>No mode selected</span>
+          </header>
+
+          <div class="mode-selector" role="radiogroup" aria-label="Select a cybersecurity environment">
+            <button
+              class="environment-card secure-environment"
+              type="button"
+              role="radio"
+              aria-checked="false"
+              data-mode-option="secure"
+            >
+              <span class="environment-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 32 36">
+                  <path d="M16 2 29 7v10c0 8.2-5.5 14.5-13 17C8.5 31.5 3 25.2 3 17V7l13-5Z"/>
+                  <path d="m10.5 18 3.6 3.6 7.8-8"/>
+                </svg>
+              </span>
+              <span class="environment-card-copy">
+                <span class="environment-title-row">
+                  <strong>Secure Mode</strong>
+                  <small>Protected</small>
+                </span>
+                <span>Simulates a protected environment where defensive mechanisms identify and stop phishing attempts before damage occurs.</span>
+              </span>
+              <span class="selection-mark" aria-hidden="true">✓</span>
+            </button>
+
+            <button
+              class="environment-card vulnerable-environment"
+              type="button"
+              role="radio"
+              aria-checked="false"
+              data-mode-option="vulnerable"
+            >
+              <span class="environment-card-icon" aria-hidden="true">
+                <svg viewBox="0 0 36 32">
+                  <path d="M18 2 34 29H2L18 2Z"/>
+                  <path d="M18 11v8M18 24v.2"/>
+                </svg>
+              </span>
+              <span class="environment-card-copy">
+                <span class="environment-title-row">
+                  <strong>Vulnerable Mode</strong>
+                  <small>At Risk</small>
+                </span>
+                <span>Simulates an unprotected environment where a fictional phishing attempt succeeds because proper defenses are absent.</span>
+              </span>
+              <span class="selection-mark" aria-hidden="true">✓</span>
+            </button>
+          </div>
+
+          <section class="mode-information is-empty" aria-live="polite" data-mode-information>
+            <div class="mode-info-empty" data-mode-empty>
+              <span aria-hidden="true">◇</span>
+              <div>
+                <h3>Select an environment to begin</h3>
+                <p>The selected mode will configure the educational architecture preview below.</p>
+              </div>
+            </div>
+            <div class="mode-info-content" data-mode-content hidden>
+              <div class="mode-info-heading">
+                <span class="mode-info-icon" aria-hidden="true" data-mode-info-icon></span>
+                <div>
+                  <p class="eyebrow" data-mode-info-label></p>
+                  <h3 data-mode-info-title></h3>
+                  <p data-mode-info-description></p>
+                </div>
+              </div>
+              <ul class="control-list" data-mode-controls></ul>
+            </div>
+          </section>
+
+          <section class="architecture-panel" aria-labelledby="architecture-title">
+            <header class="panel-heading">
+              <div>
+                <p class="eyebrow">Interactive architecture</p>
+                <h3 id="architecture-title">Security Decision Flow</h3>
+              </div>
+              <p>Visual preview only · No live processing</p>
+            </header>
+
+            <div class="architecture-flow" data-architecture>
+              <div class="flow-node neutral-node">
+                <span aria-hidden="true">✉</span><small>Input</small><strong>Incoming Message</strong>
+              </div>
+              <span class="flow-arrow" aria-hidden="true">→</span>
+              <div class="flow-node neutral-node">
+                <span aria-hidden="true">♙</span><small>Interaction</small><strong>User</strong>
+              </div>
+              <span class="flow-arrow" aria-hidden="true">→</span>
+              <div class="flow-node decision-node">
+                <span aria-hidden="true">◇</span><small>Analysis</small><strong>Decision Layer</strong>
+              </div>
+              <span class="flow-arrow flow-branch-arrow" aria-hidden="true">→</span>
+              <div class="flow-outcome flow-placeholder" data-flow-outcome>
+                <span aria-hidden="true">?</span>
+                <strong>Choose a Mode</strong>
+                <small>The path will appear here</small>
+              </div>
+            </div>
+
+            <div class="architecture-legend">
+              <span><i class="legend-input"></i> User interaction</span>
+              <span><i class="legend-defense"></i> Defensive layer</span>
+              <span><i class="legend-warning"></i> Warning state</span>
+            </div>
+          </section>
+
+          <section class="comparison-section" aria-labelledby="comparison-title">
+            <header class="panel-heading">
+              <div>
+                <p class="eyebrow">Side-by-side evaluation</p>
+                <h3 id="comparison-title">Mode Comparison</h3>
+              </div>
+            </header>
+            <div class="comparison-wrapper">
+              <table class="comparison-table">
+                <caption class="visually-hidden">Comparison of secure and vulnerable simulation environments</caption>
+                <thead>
+                  <tr><th scope="col">Feature</th><th scope="col"><span class="table-secure">◆</span> Secure</th><th scope="col"><span class="table-vulnerable">▲</span> Vulnerable</th></tr>
+                </thead>
+                <tbody>
+                  <tr><th scope="row">Phishing Detection</th><td><span class="yes-icon">✓</span> Active</td><td><span class="no-icon">×</span> Absent</td></tr>
+                  <tr><th scope="row">URL Verification</th><td><span class="yes-icon">✓</span> Checked</td><td><span class="no-icon">×</span> Ignored</td></tr>
+                  <tr><th scope="row">Email Filtering</th><td><span class="yes-icon">✓</span> Enabled</td><td><span class="no-icon">×</span> Disabled</td></tr>
+                  <tr><th scope="row">Security Awareness</th><td><span class="yes-icon">✓</span> Informed</td><td><span class="warn-icon">!</span> Limited</td></tr>
+                  <tr><th scope="row">Credential Protection</th><td><span class="yes-icon">✓</span> Layered</td><td><span class="no-icon">×</span> Weak</td></tr>
+                  <tr><th scope="row">Browser Warnings</th><td><span class="yes-icon">✓</span> Displayed</td><td><span class="no-icon">×</span> Bypassed</td></tr>
+                  <tr><th scope="row">Risk Level</th><td><span class="risk-low">Low</span></td><td><span class="risk-high">High</span></td></tr>
+                  <tr><th scope="row">Educational Outcome</th><td>Prevention through layers</td><td>Consequences of missing controls</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="education-accordion" aria-labelledby="why-title">
+            <button
+              class="accordion-trigger"
+              type="button"
+              aria-expanded="false"
+              aria-controls="why-content"
+              data-accordion-trigger
+            >
+              <span class="accordion-title"><i aria-hidden="true">?</i><span><small>Student guide</small><strong id="why-title">Why Does This Matter?</strong></span></span>
+              <span class="accordion-plus" aria-hidden="true">+</span>
+            </button>
+            <div class="accordion-content" id="why-content" data-accordion-content hidden>
+              <div class="learning-grid">
+                <article><span>01</span><h4>What is phishing?</h4><p>Phishing is an attempt to impersonate a trusted sender so a person will reveal information or take an unsafe action.</p></article>
+                <article><span>02</span><h4>Why do people fall for it?</h4><p>Urgency, fear, curiosity, and familiarity can make a message feel convincing before it has been carefully checked.</p></article>
+                <article><span>03</span><h4>How do layers reduce risk?</h4><p>Filters, reputation checks, browser warnings, and authentication controls can catch different warning signs at different stages.</p></article>
+                <article><span>04</span><h4>Why does awareness matter?</h4><p>Technology cannot predict every situation. An informed person provides an essential final layer of judgment.</p></article>
+                <article><span>05</span><h4>Technology and behavior</h4><p>Tools reduce exposure, while safe habits guide decisions. Effective security depends on both working together.</p></article>
+              </div>
+            </div>
+          </section>
+
+          <div class="phase-navigation">
+            <div>
+              <p class="eyebrow">Environment status</p>
+              <h3 data-ready-title>Choose a mode to continue</h3>
+              <p data-ready-description>Your selection stays in memory only while this page is open.</p>
+            </div>
+            <button class="button continue-button" type="button" data-continue-button>
+              Continue to Simulation <span aria-hidden="true">→</span>
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Phase 4: Fictional, visual-only simulation execution -->
+      <section class="execution section" id="phase4-simulation" aria-labelledby="execution-title" data-execution-section hidden>
+        <div class="execution-grid-bg" aria-hidden="true"></div>
+        <div class="container">
+          <header class="execution-header">
+            <div>
+              <p class="eyebrow">Phase 4 · Interactive simulation</p>
+              <h2 id="execution-title">Simulation Execution</h2>
+              <p>Observe a predefined educational outcome. No real systems, accounts, or data are involved.</p>
+            </div>
+            <span class="execution-mode-badge" data-execution-mode-badge></span>
+          </header>
+
+          <section class="initializer" aria-live="polite" aria-labelledby="initializer-title" data-initializer>
+            <div class="initializer-orbit" aria-hidden="true">
+              <span></span><i></i><b></b>
+              <svg viewBox="0 0 32 36">
+                <path d="M16 2 29 7v10c0 8.2-5.5 14.5-13 17C8.5 31.5 3 25.2 3 17V7l13-5Z"/>
+              </svg>
+            </div>
+            <p class="eyebrow">Local sandbox</p>
+            <h3 id="initializer-title">Simulation Initializing...</h3>
+            <p data-initializer-message>Checking security environment...</p>
+            <div class="initializer-progress" role="progressbar" aria-label="Simulation initialization" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" data-initializer-progress>
+              <span></span>
+            </div>
+            <ul class="initializer-checks" aria-label="Initialization tasks">
+              <li data-init-check="0"><i></i>Checking security environment</li>
+              <li data-init-check="1"><i></i>Loading fictional phishing scenario</li>
+              <li data-init-check="2"><i></i>Preparing browser-only simulation</li>
+              <li data-init-check="3"><i></i>Analyzing protection layers</li>
+            </ul>
+          </section>
+
+          <div class="execution-content" data-execution-content hidden>
+            <div class="execution-layout">
+              <section class="timeline-panel" aria-labelledby="timeline-title">
+                <header class="execution-panel-heading">
+                  <div>
+                    <p class="eyebrow" data-timeline-label>Event sequence</p>
+                    <h3 id="timeline-title">Simulation Timeline</h3>
+                  </div>
+                  <span class="timeline-counter" data-timeline-counter>0 / 6</span>
+                </header>
+                <ol class="execution-timeline" data-execution-timeline aria-live="polite"></ol>
+                <div class="timeline-complete" data-timeline-complete hidden tabindex="-1">
+                  <span class="complete-icon" aria-hidden="true" data-complete-icon></span>
+                  <div>
+                    <small>Simulation Complete</small>
+                    <h3 data-complete-title></h3>
+                    <p data-complete-outcome></p>
+                  </div>
+                </div>
+              </section>
+
+              <aside class="security-status" aria-labelledby="security-status-title" data-security-status>
+                <div class="status-visual" aria-hidden="true">
+                  <span class="status-radar"></span>
+                  <span class="status-main-icon" data-status-icon></span>
+                </div>
+                <p class="eyebrow">Environment state</p>
+                <h3 id="security-status-title" data-status-title></h3>
+                <span class="large-status-badge" data-status-badge></span>
+                <ul class="live-indicators" data-live-indicators></ul>
+                <div class="risk-meter">
+                  <div><span>Risk Level</span><strong data-risk-level></strong></div>
+                  <div class="risk-track"><span data-risk-fill></span></div>
+                </div>
+                <p class="status-disclaimer">Visual status only. No device or network scan is performed.</p>
+              </aside>
+            </div>
+
+            <section class="fictional-exposure" data-fictional-exposure hidden aria-labelledby="exposure-title">
+              <header>
+                <span aria-hidden="true">!</span>
+                <div><p class="eyebrow">Fictional demonstration</p><h3 id="exposure-title">Sensitive information could be exposed</h3></div>
+              </header>
+              <dl>
+                <div><dt>Name</dt><dd>John Doe</dd></div>
+                <div><dt>Email</dt><dd>john@example.com</dd></div>
+                <div><dt>Bank Account</dt><dd>XXXX-XXXX-4821</dd></div>
+                <div><dt>Password</dt><dd>********</dd></div>
+              </dl>
+              <p><strong>Simulation only:</strong> These are predefined placeholders. Nothing was entered, collected, stored, or transmitted.</p>
+            </section>
+
+            <section class="simulation-results" data-simulation-results hidden aria-labelledby="results-title">
+              <header class="results-heading">
+                <div><p class="eyebrow">Educational outcome</p><h3 id="results-title">Simulation Results</h3></div>
+                <p>These scores are simulated for educational purposes.</p>
+              </header>
+              <div class="score-grid">
+                <article class="score-card security-score">
+                  <span>Security Score</span><strong data-security-score>0%</strong>
+                  <div><i data-security-score-bar></i></div>
+                </article>
+                <article class="score-card exposure-score">
+                  <span>Risk Exposure</span><strong data-exposure-score>0%</strong>
+                  <div><i data-exposure-score-bar></i></div>
+                </article>
+              </div>
+            </section>
+
+            <section class="learning-panel" data-learning-panel hidden aria-labelledby="learning-title">
+              <div class="results-heading">
+                <div><p class="eyebrow">Practical guidance</p><h3 id="learning-title">What Can We Learn?</h3></div>
+              </div>
+              <div class="insight-grid" data-learning-cards></div>
+            </section>
+
+            <nav class="restart-actions" aria-label="Simulation options" data-restart-actions hidden>
+              <button class="button secure-action" type="button" data-try-mode="secure">Try Secure Mode</button>
+              <button class="button vulnerable-action" type="button" data-try-mode="vulnerable">Try Vulnerable Mode</button>
+              <button class="button button-secondary" type="button" data-restart-simulation>Restart Simulation</button>
+              <a class="button home-action" href="#home">Back to Home</a>
+            </nav>
+
+            <aside class="phase-five-placeholder">
+              <span aria-hidden="true">◇</span>
+              <div><strong>Phase 5 expansion point</strong><p>Live dashboard, threat statistics, analytics, history, charts, and metrics will be introduced in the next phase.</p></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+
+      <!-- Phase 5: Simulated Security Operations Center dashboard -->
+      <section class="soc-dashboard section" id="soc-dashboard" aria-labelledby="soc-title" data-dashboard hidden>
+        <div class="soc-grid-bg" aria-hidden="true"></div>
+        <div class="container">
+          <header class="soc-header">
+            <div>
+              <p class="eyebrow">Cybersecurity Operations Center</p>
+              <h2 id="soc-title">Simulation Analysis Dashboard</h2>
+              <span class="soc-education-badge">◆ Educational Environment</span>
+            </div>
+            <dl class="soc-meta">
+              <div><dt>Current Date</dt><dd data-dashboard-date></dd></div>
+              <div><dt>Simulation ID</dt><dd data-simulation-id></dd></div>
+              <div><dt>Simulation Status</dt><dd class="completed-status"><i></i> Completed</dd></div>
+            </dl>
+          </header>
+
+          <div class="kpi-grid" data-kpi-grid aria-label="Simulation key performance indicators"></div>
+
+          <div class="soc-primary-grid">
+            <article class="soc-card security-overview">
+              <header class="soc-card-header"><div><p class="eyebrow">Executive view</p><h3>Security Overview</h3></div><span data-overview-badge></span></header>
+              <dl class="overview-details">
+                <div><dt>Current Mode</dt><dd data-overview-mode></dd></div>
+                <div><dt>Simulation Duration</dt><dd data-overview-duration></dd></div>
+                <div><dt>Threat Level</dt><dd data-overview-threat></dd></div>
+                <div><dt>Overall Result</dt><dd data-overview-result></dd></div>
+              </dl>
+              <div class="overview-summary"><span aria-hidden="true">◎</span><div><strong>Educational Summary</strong><p data-overview-summary></p></div></div>
+            </article>
+
+            <article class="soc-card protection-gauge-card">
+              <header class="soc-card-header"><div><p class="eyebrow">Aggregate score</p><h3>Protection Score</h3></div></header>
+              <div class="main-gauge" data-main-gauge aria-label="Overall protection score">
+                <svg viewBox="0 0 140 140" aria-hidden="true">
+                  <circle class="gauge-track" cx="70" cy="70" r="57"></circle>
+                  <circle class="gauge-value" cx="70" cy="70" r="57" data-main-gauge-circle></circle>
+                </svg>
+                <div><strong data-main-gauge-value>0%</strong><small>Overall</small></div>
+              </div>
+              <p>Calculated from fictional simulation controls for awareness training only.</p>
+            </article>
+          </div>
+
+          <article class="soc-card dashboard-timeline-card">
+            <header class="soc-card-header"><div><p class="eyebrow">Analysis lifecycle</p><h3>Attack Timeline Summary</h3></div></header>
+            <ol class="dashboard-timeline" data-dashboard-timeline>
+              <li><span>1</span><strong>Message Received</strong></li>
+              <li><span>2</span><strong>Indicators Found</strong></li>
+              <li><span>3</span><strong>Mode Selected</strong></li>
+              <li><span>4</span><strong>Simulation Executed</strong></li>
+              <li><span>5</span><strong>Result Generated</strong></li>
+              <li><span>6</span><strong>Dashboard Complete</strong></li>
+            </ol>
+          </article>
+
+          <div class="soc-secondary-grid">
+            <article class="soc-card metrics-card">
+              <header class="soc-card-header"><div><p class="eyebrow">Control coverage</p><h3>Security Metrics</h3></div></header>
+              <div class="metric-rings" data-metric-rings></div>
+            </article>
+
+            <article class="soc-card risk-matrix-card">
+              <header class="soc-card-header"><div><p class="eyebrow">Likelihood × impact</p><h3>Risk Matrix</h3></div><span data-matrix-label></span></header>
+              <div class="risk-matrix" role="img" data-risk-matrix aria-label="Three by three risk matrix">
+                <span class="matrix-axis matrix-impact">Impact →</span>
+                <span class="matrix-axis matrix-likelihood">Likelihood →</span>
+                <div data-cell="low-high">Medium</div><div data-cell="medium-high">High</div><div data-cell="high-high">Critical</div>
+                <div data-cell="low-medium">Low</div><div data-cell="medium-medium">Medium</div><div data-cell="high-medium">High</div>
+                <div data-cell="low-low">Low</div><div data-cell="medium-low">Low</div><div data-cell="high-low">Medium</div>
+              </div>
+            </article>
+          </div>
+
+          <div class="soc-secondary-grid">
+            <article class="soc-card threat-bars-card">
+              <header class="soc-card-header"><div><p class="eyebrow">Simulated telemetry</p><h3>Threat Visualization</h3></div></header>
+              <div class="security-bars" data-security-bars></div>
+            </article>
+
+            <article class="soc-card event-log-card">
+              <header class="soc-card-header"><div><p class="eyebrow">Local event stream</p><h3>Event Log</h3></div><span class="terminal-live"><i></i> LIVE REPLAY</span></header>
+              <div class="event-terminal" role="log" aria-live="polite" data-event-log></div>
+            </article>
+          </div>
+
+          <article class="soc-card charts-card">
+            <header class="soc-card-header"><div><p class="eyebrow">Visual analysis</p><h3>Interactive Charts</h3></div><span>CSS + SVG · No external libraries</span></header>
+            <div class="charts-grid" data-charts></div>
+          </article>
+
+          <article class="soc-card recommendations-card">
+            <header class="soc-card-header"><div><p class="eyebrow">Action plan</p><h3>Educational Recommendations</h3></div></header>
+            <div class="recommendations-grid" data-recommendations></div>
+          </article>
+
+          <nav class="soc-actions" aria-label="Dashboard actions">
+            <button class="button download-action" type="button" data-download-summary>↓ Download Summary</button>
+            <button class="button button-secondary" type="button" data-print-report>Print Report</button>
+            <button class="button button-secondary" type="button" data-dashboard-restart>Restart Simulation</button>
+            <a class="button home-action" href="#home">Back to Home</a>
+          </nav>
+
+          <aside class="final-phase-placeholder">
+            <span aria-hidden="true">◇</span>
+            <p><strong>Final phase preparation:</strong> polish, advanced animations, theme switching, keyboard shortcuts, performance review, deployment configuration, README documentation, and GitHub Pages support.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="purpose section" id="about" aria-labelledby="purpose-title">
+        <div class="container">
+          <div class="section-heading">
+            <p class="eyebrow">Built for responsible learning</p>
+            <h2 id="purpose-title">A safe place to examine both sides</h2>
+            <p>
+              DualShield is designed for cybersecurity education—not exploitation.
+              Every scenario will use fictional information and remain isolated inside this interface.
+            </p>
+          </div>
+
+          <div class="purpose-grid">
+            <article class="purpose-card">
+              <span class="card-number">01</span>
+              <div class="card-icon red-icon" aria-hidden="true">!</div>
+              <h3>Recognize the risk</h3>
+              <p>Observe a controlled, fictional scenario to understand the warning signs and potential impact of phishing.</p>
+            </article>
+            <article class="purpose-card">
+              <span class="card-number">02</span>
+              <div class="card-icon green-icon" aria-hidden="true">⌁</div>
+              <h3>Evaluate the defense</h3>
+              <p>Explore how layered controls identify suspicious activity and protect users before harm occurs.</p>
+            </article>
+            <article class="purpose-card">
+              <span class="card-number">03</span>
+              <div class="card-icon blue-icon" aria-hidden="true">◎</div>
+              <h3>Build safer habits</h3>
+              <p>Turn technical observations into practical awareness through guided, educational explanations.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="learn section" id="learn" aria-labelledby="learn-title">
+        <div class="container learn-panel">
+          <div>
+            <p class="eyebrow">Educational by design</p>
+            <h2 id="learn-title">Simulation without real-world risk</h2>
+          </div>
+          <p>
+            This project will never collect credentials, contact external services,
+            execute malware, scan networks, or transmit user data. Future interactions
+            will be local, predefined, and clearly labeled as simulations.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-content">
+        <a class="brand footer-brand" href="#home">
+          <span class="brand-mark" aria-hidden="true">
+            <svg viewBox="0 0 32 36"><path d="M16 2 29 7v10c0 8.2-5.5 14.5-13 17C8.5 31.5 3 25.2 3 17V7l13-5Z"/></svg>
+          </span>
+          <span class="brand-copy"><strong>DualShield</strong><small>Cybersecurity Lab</small></span>
+        </a>
+        <p>Final Year Project · Educational simulation only</p>
+        <p>© <span data-year></span> DualShield</p>
+      </div>
+    </footer>
+  </div>
+
+  <div class="modal-backdrop" data-education-modal hidden>
+    <section
+      class="education-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+      aria-describedby="modal-description"
+      tabindex="-1"
+      data-modal-dialog
+    >
+      <button class="modal-close" type="button" aria-label="Close educational dialog" data-modal-close>×</button>
+      <div class="modal-icon" aria-hidden="true">!</div>
+      <p class="eyebrow">Think first · Click second</p>
+      <h2 id="modal-title">Pause Before You Click</h2>
+      <p id="modal-description">This simulation demonstrates how phishing attempts encourage users to act before thinking.</p>
+      <p class="modal-list-title">In real situations you should:</p>
+      <ul>
+        <li><span aria-hidden="true">✓</span> Verify the sender</li>
+        <li><span aria-hidden="true">✓</span> Check the URL carefully</li>
+        <li><span aria-hidden="true">✓</span> Never share passwords</li>
+        <li><span aria-hidden="true">✓</span> Contact the organization directly if unsure</li>
+      </ul>
+      <div class="modal-actions">
+        <button class="button button-primary" type="button" data-modal-continue>Continue Simulation <span aria-hidden="true">→</span></button>
+        <button class="button button-secondary" type="button" data-modal-return>Return</button>
+      </div>
+      <p class="modal-safety"><span aria-hidden="true">◆</span> No website was opened and no information was collected.</p>
+    </section>
+  </div>
+
+  <div class="mode-toast" role="status" aria-live="polite" aria-atomic="true" data-mode-toast>
+    <span class="mode-toast-icon" aria-hidden="true">◆</span>
+    <p><strong data-toast-title></strong><small data-toast-message></small></p>
+    <span class="toast-timer" aria-hidden="true"></span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
